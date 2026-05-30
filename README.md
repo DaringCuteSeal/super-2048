@@ -21,4 +21,9 @@ I wanted to make a 2048 clone, but I accidentally found an O(N)[^1] time complex
 You must not be a vim user, huh? Use h for left, j for down, k for up, and l for right.
 </details>
 
+<details>
+  <summary>I'm too good at this game but I'm too tired to continue, how do I quit?</summary>
+Press q.
+</details>
+
 [^1]: for one array, so O(N^2) for the whole game board.
