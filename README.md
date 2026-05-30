@@ -17,11 +17,6 @@ I wanted to make a 2048 clone, but I accidentally found an O(N)[^1] time complex
 ## FAQ
 
 <details>
-  <summary>Where is the game score?</summary>
-I mean, the numbers are already there so just sum them up yourself or something, I don't know.
-</details>
-
-<details>
   <summary>How do I actually control it?</summary>
 You must not be a vim user, huh? Use h for left, j for down, k for up, and l for right.
 </details>
