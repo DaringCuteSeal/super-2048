@@ -9,7 +9,7 @@ It's [2048](https://en.wikipedia.org/wiki/2048_(video_game)) except that instead
 
 `8`
 
-<a href="https://asciinema.org/a/LTlNbbeqwCM63w1L" target="_blank"><img src="https://asciinema.org/a/LTlNbbeqwCM63w1L.svg" /></a>
+<a href="https://asciinema.org/a/n0j0nqs4ab04ubiS" target="_blank"><img src="https://asciinema.org/a/n0j0nqs4ab04ubiS.svg" /></a>
 
 ## More About
 I wanted to make a 2048 clone, but I accidentally found an O(N)[^1] time complexity and O(1) space complexity recursive merging (which turned out to be easier than limited merging, huh).
