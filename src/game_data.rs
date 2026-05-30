@@ -73,22 +73,22 @@ impl GameData {
 
     pub fn has_legal_moves(&self) -> bool {
         for r in 0..GRID_WIDTH {
-            for c in 1..GRID_WIDTH {
-                if self.numbers_data[r][c - 1] == 0 {
+            for c in 0..GRID_WIDTH {
+                if self.numbers_data[r][c] == 0 {
                     return true;
                 }
-                if self.numbers_data[r][c] == self.numbers_data[r][c - 1] {
+                if c != 0 && self.numbers_data[r][c] == self.numbers_data[r][c - 1] {
                     return true;
                 }
             }
         }
 
         for c in 0..GRID_WIDTH {
-            for r in 1..GRID_WIDTH {
-                if self.numbers_data[r - 1][c] == 0 {
+            for r in 0..GRID_WIDTH {
+                if self.numbers_data[r][c] == 0 {
                     return true;
                 }
-                if self.numbers_data[r][c] == self.numbers_data[r - 1][c] {
+                if r != 0 && self.numbers_data[r][c] == self.numbers_data[r - 1][c] {
                     return true;
                 }
             }
@@ -422,6 +422,19 @@ mod tests {
             [4, 3, 2, 0],
             [1, 2, 3, 0],
             [4, 3, 2, 0]
+        ];
+        let data = GameData::new_with(tiles);
+        assert!(data.has_legal_moves());
+    }
+
+    #[test]
+    fn has_legal_moves_4() {
+        #[rustfmt::skip]
+        let tiles = [
+            [4, 2, 32, 2],
+            [2, 8, 2, 4],
+            [4, 64, 8, 32],
+            [16, 8, 2, 0]
         ];
         let data = GameData::new_with(tiles);
         assert!(data.has_legal_moves());
