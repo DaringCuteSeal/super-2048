@@ -10,29 +10,27 @@ use std::process::exit;
 
 use crate::game_data::GameData;
 
-pub enum Move {
+pub enum InputType {
     LEFT,
     RIGHT,
     UP,
     DOWN,
+    EXIT,
 }
 
-pub fn get_input() -> Option<Move> {
+pub fn get_input() -> Option<InputType> {
     enable_raw_mode().unwrap();
     let event = read();
-    let mut result: Option<Move> = None;
+    let mut result: Option<InputType> = None;
     if let Err(_) = event {
         return None;
     } else if let Ok(Event::Key(key_event)) = event {
         match key_event.code {
-            KeyCode::Char('h') => result = Some(Move::LEFT),
-            KeyCode::Char('k') => result = Some(Move::UP),
-            KeyCode::Char('j') => result = Some(Move::DOWN),
-            KeyCode::Char('l') => result = Some(Move::RIGHT),
-            KeyCode::Char('q') => {
-                disable_raw_mode().unwrap();
-                exit(0)
-            }
+            KeyCode::Char('h') => result = Some(InputType::LEFT),
+            KeyCode::Char('k') => result = Some(InputType::UP),
+            KeyCode::Char('j') => result = Some(InputType::DOWN),
+            KeyCode::Char('l') => result = Some(InputType::RIGHT),
+            KeyCode::Char('q') => result = Some(InputType::EXIT),
             _ => result = None,
         }
     }

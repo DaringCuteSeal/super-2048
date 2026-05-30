@@ -9,6 +9,7 @@ const GRID_WIDTH: usize = 4;
 const TILE_WIDTH: usize = 5;
 
 pub struct GameData {
+    pub score: u32,
     numbers_data: [[u32; GRID_WIDTH]; GRID_WIDTH],
     rng: ThreadRng,
 }
@@ -39,6 +40,7 @@ impl GameData {
         return Self {
             numbers_data: data,
             rng: rng(),
+            score: 0,
         };
     }
 
@@ -46,6 +48,7 @@ impl GameData {
         return Self {
             numbers_data: [[0; GRID_WIDTH]; GRID_WIDTH],
             rng: rng(),
+            score: 0,
         };
     }
 
@@ -124,12 +127,14 @@ impl GameData {
 
                 if self.numbers_data[i][c] == self.numbers_data[write_ptr][c] {
                     self.numbers_data[write_ptr][c] *= 2;
+                    self.score += self.numbers_data[write_ptr][c];
 
                     // merge backwards if possible
                     while write_ptr + 1 < GRID_WIDTH
                         && self.numbers_data[write_ptr][c] == self.numbers_data[write_ptr + 1][c]
                     {
                         self.numbers_data[write_ptr + 1][c] *= 2;
+                        self.score += self.numbers_data[write_ptr + 1][c];
                         write_ptr += 1;
                     }
                 } else {
@@ -166,12 +171,14 @@ impl GameData {
 
                 if self.numbers_data[r][i] == self.numbers_data[r][write_ptr] {
                     self.numbers_data[r][write_ptr] *= 2;
+                    self.score += self.numbers_data[r][write_ptr];
 
                     // merge backwards if possible
                     while write_ptr + 1 < GRID_WIDTH
                         && self.numbers_data[r][write_ptr] == self.numbers_data[r][write_ptr + 1]
                     {
                         self.numbers_data[r][write_ptr + 1] *= 2;
+                        self.score += self.numbers_data[r][write_ptr + 1];
                         write_ptr += 1;
                     }
                 } else {
@@ -208,12 +215,14 @@ impl GameData {
 
                 if self.numbers_data[i][c] == self.numbers_data[write_ptr][c] {
                     self.numbers_data[write_ptr][c] *= 2;
+                    self.score += self.numbers_data[write_ptr][c];
 
                     // merge backwards if possible
                     while write_ptr >= 1
                         && self.numbers_data[write_ptr][c] == self.numbers_data[write_ptr - 1][c]
                     {
                         self.numbers_data[write_ptr - 1][c] *= 2;
+                        self.score += self.numbers_data[write_ptr - 1][c];
                         write_ptr -= 1;
                     }
                 } else {
@@ -250,12 +259,14 @@ impl GameData {
 
                 if self.numbers_data[r][i] == self.numbers_data[r][write_ptr] {
                     self.numbers_data[r][write_ptr] *= 2;
+                    self.score += self.numbers_data[r][write_ptr];
 
                     // merge backwards if possible
                     while write_ptr >= 1
                         && self.numbers_data[r][write_ptr] == self.numbers_data[r][write_ptr - 1]
                     {
                         self.numbers_data[r][write_ptr - 1] *= 2;
+                        self.score += self.numbers_data[r][write_ptr - 1];
                         write_ptr -= 1;
                     }
                 } else {
