@@ -26,5 +26,4 @@ I mean, the numbers are already there so just sum them up yourself or something,
 You must not be a vim user, huh? Use h for left, j for down, k for up, and l for right.
 </details>
 
-
 [^1]: for one array, so O(N^2) for the whole game board.
