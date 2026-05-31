@@ -104,7 +104,8 @@ impl GameData {
     // to the input array itself.
     //
     // edit: i mean O(N) for one row/column so technically O(N^2) for this game
-    pub fn gravity_down(&mut self) {
+    pub fn gravity_down(&mut self) -> bool {
+        let mut moved = false;
         for c in 0..GRID_WIDTH {
             let mut start = GRID_WIDTH - 1;
 
@@ -113,6 +114,9 @@ impl GameData {
             }
 
             let tmp = self.numbers_data[start][c];
+            if tmp != self.numbers_data[GRID_WIDTH - 1][c] {
+                moved = true;
+            }
             self.numbers_data[start][c] = self.numbers_data[GRID_WIDTH - 1][c];
             self.numbers_data[GRID_WIDTH - 1][c] = tmp;
 
@@ -126,6 +130,7 @@ impl GameData {
                 }
 
                 if self.numbers_data[i][c] == self.numbers_data[write_ptr][c] {
+                    moved = true;
                     self.numbers_data[write_ptr][c] *= 2;
                     self.score += self.numbers_data[write_ptr][c];
 
@@ -139,6 +144,9 @@ impl GameData {
                     }
                 } else {
                     write_ptr -= 1;
+                    if self.numbers_data[write_ptr][c] != self.numbers_data[i][c] {
+                        moved = true;
+                    }
                     self.numbers_data[write_ptr][c] = self.numbers_data[i][c];
                 }
             }
@@ -146,9 +154,11 @@ impl GameData {
                 self.numbers_data[i][c] = 0;
             }
         }
+        moved
     }
 
-    pub fn gravity_right(&mut self) {
+    pub fn gravity_right(&mut self) -> bool {
+        let mut moved = false;
         for r in 0..GRID_WIDTH {
             let mut start = GRID_WIDTH - 1;
 
@@ -157,6 +167,9 @@ impl GameData {
             }
 
             let tmp = self.numbers_data[r][start];
+            if tmp != self.numbers_data[r][GRID_WIDTH - 1] {
+                moved = true;
+            }
             self.numbers_data[r][start] = self.numbers_data[r][GRID_WIDTH - 1];
             self.numbers_data[r][GRID_WIDTH - 1] = tmp;
 
@@ -170,6 +183,7 @@ impl GameData {
                 }
 
                 if self.numbers_data[r][i] == self.numbers_data[r][write_ptr] {
+                    moved = true;
                     self.numbers_data[r][write_ptr] *= 2;
                     self.score += self.numbers_data[r][write_ptr];
 
@@ -183,6 +197,9 @@ impl GameData {
                     }
                 } else {
                     write_ptr -= 1;
+                    if self.numbers_data[r][write_ptr] != self.numbers_data[r][i] {
+                        moved = true;
+                    }
                     self.numbers_data[r][write_ptr] = self.numbers_data[r][i];
                 }
             }
@@ -190,9 +207,11 @@ impl GameData {
                 self.numbers_data[r][i] = 0;
             }
         }
+        moved
     }
 
-    pub fn gravity_up(&mut self) {
+    pub fn gravity_up(&mut self) -> bool {
+        let mut moved = false;
         for c in 0..GRID_WIDTH {
             let mut start = 0;
 
@@ -201,6 +220,9 @@ impl GameData {
             }
 
             let tmp = self.numbers_data[start][c];
+            if tmp != self.numbers_data[0][c] {
+                moved = true;
+            }
             self.numbers_data[start][c] = self.numbers_data[0][c];
             self.numbers_data[0][c] = tmp;
 
@@ -214,6 +236,7 @@ impl GameData {
                 }
 
                 if self.numbers_data[i][c] == self.numbers_data[write_ptr][c] {
+                    moved = true;
                     self.numbers_data[write_ptr][c] *= 2;
                     self.score += self.numbers_data[write_ptr][c];
 
@@ -227,6 +250,9 @@ impl GameData {
                     }
                 } else {
                     write_ptr += 1;
+                    if self.numbers_data[write_ptr][c] != self.numbers_data[i][c] {
+                        moved = true
+                    }
                     self.numbers_data[write_ptr][c] = self.numbers_data[i][c];
                 }
             }
@@ -234,9 +260,11 @@ impl GameData {
                 self.numbers_data[i][c] = 0;
             }
         }
+        moved
     }
 
-    pub fn gravity_left(&mut self) {
+    pub fn gravity_left(&mut self) -> bool {
+        let mut moved = false;
         for r in 0..GRID_WIDTH {
             let mut start = 0;
 
@@ -245,6 +273,9 @@ impl GameData {
             }
 
             let tmp = self.numbers_data[r][start];
+            if tmp != self.numbers_data[r][0] {
+                moved = true;
+            }
             self.numbers_data[r][start] = self.numbers_data[r][0];
             self.numbers_data[r][0] = tmp;
 
@@ -258,6 +289,7 @@ impl GameData {
                 }
 
                 if self.numbers_data[r][i] == self.numbers_data[r][write_ptr] {
+                    moved = true;
                     self.numbers_data[r][write_ptr] *= 2;
                     self.score += self.numbers_data[r][write_ptr];
 
@@ -271,6 +303,9 @@ impl GameData {
                     }
                 } else {
                     write_ptr += 1;
+                    if self.numbers_data[r][write_ptr] != self.numbers_data[r][i] {
+                        moved = true;
+                    }
                     self.numbers_data[r][write_ptr] = self.numbers_data[r][i];
                 }
             }
@@ -278,6 +313,7 @@ impl GameData {
                 self.numbers_data[r][i] = 0;
             }
         }
+        moved
     }
 }
 
